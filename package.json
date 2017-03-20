@@ -1,0 +1,16 @@
+{
+  "name": "elm-modal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "elm:install": "elm package install",
+    "elm:make": "elm make ./src/Main.elm --output=./dist/app.js;",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Greene <hightimesteddy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "elm": "0.18.0"
+  }
+}
