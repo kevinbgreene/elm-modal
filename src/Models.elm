@@ -10,5 +10,5 @@ type alias Model =
 model : Model
 model =
   { msg = "Hello World"
-  , isModalOpen = True
+  , isModalOpen = False
   }

@@ -1,5 +1,7 @@
-module Messages exposing (Msg)
+module Messages exposing (..)
 
 
-type Msg =
-  NoOp
+type Msg
+  = NoOp
+  | ShowModal
+  | HideModal
