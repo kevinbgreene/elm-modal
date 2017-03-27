@@ -8,6 +8,7 @@ import Models exposing (Model)
 import View.Header as Header
 import View.Main as Main
 import View.Modal as Modal
+import View.DeathScreen as DeathScreen
 
 
 mainContentStyle : Attribute msg
@@ -21,8 +22,13 @@ mainContentStyle =
 
 view : Model -> Html Msg
 view model =
-  div [ mainContentStyle ]
-    [ Header.view
-    , Main.view
-    , Modal.view model
-    ]
+  case model.isWorldDestroyed of
+    False ->
+      div [ mainContentStyle ]
+        [ Header.view
+        , Main.view
+        , Modal.view model
+        ]
+
+    True ->
+      DeathScreen.view

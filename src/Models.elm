@@ -2,13 +2,13 @@ module Models exposing (Model, model)
 
 
 type alias Model =
-  { msg : String
-  , isModalOpen : Bool
+  { isConfirmationRequested : Bool
+  , isWorldDestroyed : Bool
   }
 
 
 model : Model
 model =
-  { msg = "Hello World"
-  , isModalOpen = False
+  { isConfirmationRequested = False
+  , isWorldDestroyed = False
   }

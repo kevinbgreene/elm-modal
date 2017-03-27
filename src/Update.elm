@@ -11,16 +11,28 @@ update msg model =
     NoOp ->
       (model, Cmd.none)
 
-    ShowModal ->
+    RequestConfirmation ->
       let
         newModel =
-          { model | isModalOpen = True }
+          { model | isConfirmationRequested = True }
       in
         (newModel, Cmd.none)
 
-    HideModal ->
+    ConfirmWorldDestruction ->
       let
         newModel =
-          { model | isModalOpen = False }
+          { model
+          | isConfirmationRequested = False
+          , isWorldDestroyed = True
+          }
+
+      in
+        (newModel, Cmd.none)
+
+    AbortWorldDestruction ->
+      let
+        newModel =
+          { model | isConfirmationRequested = False }
+
       in
         (newModel, Cmd.none)
