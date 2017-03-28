@@ -26,7 +26,7 @@ view model =
     False ->
       div [ mainContentStyle ]
         [ Header.view
-        , Main.view
+        , Main.view model
         , Modal.view model
         ]
 

@@ -4,6 +4,6 @@ module Tacos.Messages exposing (..)
 type Msg
   = NoOp
   | StartTacoOrder
-  | UpdateOrder Int
+  | UpdateOrderCount Int
   | PlaceOrder
   | CancelOrder

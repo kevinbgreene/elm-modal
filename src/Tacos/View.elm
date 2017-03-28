@@ -2,64 +2,18 @@ module Tacos.View exposing (view, modal)
 
 
 import Json.Decode as Json
-import Html exposing (Html, Attribute, button, div, h3, input, label, p, text)
-import Html.Attributes exposing (type_, style, for, id)
+import Html exposing (Html, Attribute, button, div, h3, input, p, text)
+import Html.Attributes exposing (type_, id)
 import Html.Events exposing (onClick, on)
 import Tacos.Messages exposing (Msg(..))
 import Tacos.Models exposing (Model)
-
-
-orderDescStyle : Attribute msg
-orderDescStyle =
-  style
-    [ ("margin", "0 0 8px 0") ]
-
-
-orderInputStyle : Attribute msg
-orderInputStyle =
-  style
-    [ ("display", "block")
-    , ("width", "100%")
-    , ("line-height", "24px")
-    , ("margin", "0 0 8px 0")
-    , ("border", "1px solid rgba(0,0,0,0.3)")
-    ]
-
-
-orderHeaderStyle : Attribute msg
-orderHeaderStyle =
-  style
-    [ ("padding", "12px")
-    , ("margin", "0px")
-    , ("border-bottom", "1px solid rgba(0,0,0,0.3)")
-    ]
-
-
-orderBodyStyle : Attribute msg
-orderBodyStyle =
-  style
-    [ ("padding", "10px")
-    ]
-
-
-orderButtonStyle : Attribute msg
-orderButtonStyle =
-  style
-    [ ("display", "inline-block")
-    , ("appearance", "none")
-    , ("padding", "12px, 16px")
-    , ("color", "rgb(54,137,218)")
-    , ("background", "transparent")
-    , ("border", "none")
-    , ("cursor", "pointer")
-    , ("font-size", "1em")
-    ]
+import Styles exposing (optionButtonStyle, modalHeaderStyle, modalBodyStyle, modalDescStyle, textInputStyle)
 
 
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ orderButtonStyle, (onClick StartTacoOrder) ]
+    [ button [ optionButtonStyle, (onClick StartTacoOrder) ]
       [ text "Order tacos!" ]
     , if model.totalOrdered > 0 then
         div []
@@ -74,16 +28,18 @@ view model =
 modal : Html Msg
 modal =
   div []
-    [ h3 [ orderHeaderStyle ]
+    [ h3 [ modalHeaderStyle ]
       [ text "How many tacos would you like?" ]
-    , div [ orderBodyStyle ]
-      [ p [ orderDescStyle ]
+    , div [ modalBodyStyle ]
+      [ p [ modalDescStyle ]
+        [ text "The full weight of the Department of Defense will be put behind delivering tacos within 30 minutes." ]
+      , p [ modalDescStyle ]
         [ text "Please remember that each taco ordered carries a $1,000,000 surcharge for taxpayers." ]
-      , input [ (id "order-input"), (type_ "number"), (onInputInt UpdateOrder), orderInputStyle ] []
-      , button [ orderButtonStyle, (onClick CancelOrder) ]
-        [ text "Cancel order" ]
-      , button [ orderButtonStyle, (onClick PlaceOrder) ]
-        [ text "Place order" ]
+      , input [ (id "order-input"), (type_ "number"), (onInputInt UpdateOrderCount), textInputStyle ] []
+      , button [ optionButtonStyle, (onClick CancelOrder) ]
+        [ text "Nevermind" ]
+      , button [ optionButtonStyle, (onClick PlaceOrder) ]
+        [ text "Feed me!!" ]
       ]
     ]
 

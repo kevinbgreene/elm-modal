@@ -19,7 +19,7 @@ update msg model =
       in
         (newModel, Cmd.none)
 
-    UpdateOrder orderCount ->
+    UpdateOrderCount orderCount ->
       let
         newModel =
           { model | currentOrder = orderCount }

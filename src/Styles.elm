@@ -66,3 +66,20 @@ modalBodyStyle =
   style
     [ ("padding", "10px")
     ]
+
+
+modalDescStyle : Attribute msg
+modalDescStyle =
+  style
+    [ ("margin", "0 0 8px 0") ]
+
+
+textInputStyle : Attribute msg
+textInputStyle =
+  style
+    [ ("display", "block")
+    , ("width", "100%")
+    , ("line-height", "24px")
+    , ("margin", "0 0 8px 0")
+    , ("border", "1px solid rgba(0,0,0,0.3)")
+    ]

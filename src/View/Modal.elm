@@ -1,11 +1,15 @@
 module View.Modal exposing (view)
 
 
+import Html
 import Html exposing (Html, Attribute, button, div, h3, p, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Models exposing (Model, RequestedAction(..))
+import Tacos.View as Tacos
+import DestroyWorld.View as DestroyWorld
+import DestroyCountry.View as DestroyCountry
 
 
 maskStyle : Attribute msg
@@ -38,42 +42,27 @@ modalStyle =
     ]
 
 
-modalHeaderStyle : Attribute msg
-modalHeaderStyle =
-  style
-    [ ("padding", "10px")
-    , ("margin", "0px")
-    , ("border-bottom", "1px solid rgba(0,0,0,0.3)")
-    ]
-
-
-modalBodyStyle : Attribute msg
-modalBodyStyle =
-  style
-    [ ("padding", "10px")
-    ]
-
-
 view : Model -> Html Msg
 view model =
-  case model.isConfirmationRequested of
-    True ->
+  case model.requestedAction of
+    Nothing ->
+      div [ style [("display", "none")] ] []
+
+    Just action ->
       div [ maskStyle ]
         [ div [ modalStyle ]
-          [ h3 [ modalHeaderStyle ]
-            [ text "Are you sure you want to blow up the world?" ]
-          , div [ modalBodyStyle ]
-            [ p []
-              [ text "This action cannot be reverted. Once confirmed we will all meet our maker, whoever she is." ]
-            ]
-          , div []
-            [ button [ (onClick AbortWorldDestruction) ]
-              [ text "Oh hell no!" ]
-            , button [ (onClick ConfirmWorldDestruction) ]
-              [ text "Yes, blow it up!" ]
-            ]
-          ]
+          [ modalContent action ]
         ]
 
-    False ->
-      div [ style [("display", "none")] ] []
+
+modalContent : RequestedAction -> Html Msg
+modalContent action =
+  case action of
+    OrderTacos ->
+      Html.map UpdateTacos Tacos.modal
+
+    ConfirmDestroyWorld ->
+      Html.map UpdateDestroyWorld DestroyWorld.modal
+
+    ChooseCountryToBomb ->
+      Html.map UpdateDestroyCountry DestroyCountry.modal
