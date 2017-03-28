@@ -1,7 +1,7 @@
 module Tacos.Update exposing (update)
 
 
-import Tacos.Models exposing (Model)
+import Tacos.Models exposing (..)
 import Tacos.Messages exposing (Msg(..))
 
 
@@ -14,15 +14,18 @@ update msg model =
     StartTacoOrder ->
       let
         newModel =
-          { model | isOrdering = True }
+          { model | modal = (Just modal) }
 
       in
         (newModel, Cmd.none)
 
     UpdateOrderCount orderCount ->
       let
+        newModal =
+          Maybe.map (\x -> { x | currentOrder = orderCount }) model.modal
+
         newModel =
-          { model | currentOrder = orderCount }
+          { model | modal = newModal }
 
       in
         (newModel, Cmd.none)
@@ -30,10 +33,14 @@ update msg model =
     PlaceOrder ->
       let
         orderTotal =
-          model.currentOrder + model.totalOrdered
+          case model.modal of
+            Just modal ->
+              modal.currentOrder + model.totalOrdered
+
+            _ -> model.totalOrdered
 
         newModel =
-          { model | currentOrder = 0, totalOrdered = orderTotal, isOrdering = False }
+          { model | totalOrdered = orderTotal, modal = Nothing }
 
       in
         (newModel, Cmd.none)
@@ -41,7 +48,7 @@ update msg model =
     CancelOrder ->
       let
         newModel =
-          { model | currentOrder = 0, isOrdering = False }
+          { model | modal = Nothing }
 
       in
         (newModel, Cmd.none)

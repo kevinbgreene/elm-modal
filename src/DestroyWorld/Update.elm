@@ -1,7 +1,7 @@
 module DestroyWorld.Update exposing (update)
 
 
-import DestroyWorld.Models exposing (Model)
+import DestroyWorld.Models exposing (..)
 import DestroyWorld.Messages exposing (Msg(..))
 
 
@@ -14,7 +14,7 @@ update msg model =
     RequestWorldDestruction ->
       let
         newModel =
-          { model | isConfirming = True }
+          { model | modal = (Just modal) }
 
       in
         (newModel, Cmd.none)
@@ -22,7 +22,7 @@ update msg model =
     ConfirmWorldDestruction ->
       let
         newModel =
-          { model | isWorldDestroyed = True, isConfirming = False }
+          { model | isWorldDestroyed = True, modal = Nothing }
 
       in
         (newModel, Cmd.none)
@@ -30,7 +30,7 @@ update msg model =
     AbortWorldDestruction ->
       let
         newModel =
-          { model | isConfirming = False }
+          { model | modal = Nothing }
 
       in
         (newModel, Cmd.none)

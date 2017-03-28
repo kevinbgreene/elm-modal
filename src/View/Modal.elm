@@ -6,7 +6,7 @@ import Html exposing (Html, Attribute, button, div, h3, p, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 import Messages exposing (Msg(..))
-import Models exposing (Model, RequestedAction(..))
+import Models exposing (Model, Modal(..))
 import Tacos.View as Tacos
 import DestroyWorld.View as DestroyWorld
 import DestroyCountry.View as DestroyCountry
@@ -44,25 +44,25 @@ modalStyle =
 
 view : Model -> Html Msg
 view model =
-  case model.requestedAction of
+  case model.modal of
     Nothing ->
       div [ style [("display", "none")] ] []
 
-    Just action ->
+    Just modal ->
       div [ maskStyle ]
         [ div [ modalStyle ]
-          [ modalContent action ]
+          [ modalContent modal ]
         ]
 
 
-modalContent : RequestedAction -> Html Msg
-modalContent action =
-  case action of
-    OrderTacos ->
+modalContent : Modal -> Html Msg
+modalContent wrappedModal =
+  case wrappedModal of
+    TacoModal modal ->
       Html.map UpdateTacos Tacos.modal
 
-    ConfirmDestroyWorld ->
+    WorldModal modal ->
       Html.map UpdateDestroyWorld DestroyWorld.modal
 
-    ChooseCountryToBomb ->
+    CountryModal modal ->
       Html.map UpdateDestroyCountry DestroyCountry.modal

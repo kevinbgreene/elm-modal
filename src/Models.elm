@@ -6,10 +6,10 @@ import DestroyWorld.Models as DestroyWorld
 import DestroyCountry.Models as DestroyCountry
 
 
-type RequestedAction
-  = OrderTacos
-  | ConfirmDestroyWorld
-  | ChooseCountryToBomb
+type Modal
+  = TacoModal Tacos.Modal
+  | WorldModal DestroyWorld.Modal
+  | CountryModal DestroyCountry.Modal
 
 
 type alias Model =
@@ -17,7 +17,7 @@ type alias Model =
   , tacos : Tacos.Model
   , destroyWorld : DestroyWorld.Model
   , destroyCountry : DestroyCountry.Model
-  , requestedAction : Maybe RequestedAction
+  , modal : Maybe Modal
   }
 
 
@@ -27,5 +27,5 @@ model =
   , tacos = Tacos.model
   , destroyWorld = DestroyWorld.model
   , destroyCountry = DestroyCountry.model
-  , requestedAction = Nothing
+  , modal = Nothing
   }

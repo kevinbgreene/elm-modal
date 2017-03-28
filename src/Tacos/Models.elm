@@ -1,16 +1,25 @@
-module Tacos.Models exposing (Model, model)
+module Tacos.Models exposing (..)
+
+
+type alias Modal =
+  { currentOrder : Int
+  }
 
 
 type alias Model =
-  { currentOrder : Int
-  , totalOrdered : Int
-  , isOrdering : Bool
+  { totalOrdered : Int
+  , modal : Maybe Modal
   }
 
 
 model : Model
 model =
+  { totalOrdered = 0
+  , modal = Nothing
+  }
+
+
+modal : Modal
+modal =
   { currentOrder = 0
-  , totalOrdered = 0
-  , isOrdering = False
   }

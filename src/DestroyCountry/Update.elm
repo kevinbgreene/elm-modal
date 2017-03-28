@@ -1,7 +1,7 @@
 module DestroyCountry.Update exposing (update)
 
 
-import DestroyCountry.Models exposing (Model)
+import DestroyCountry.Models exposing (..)
 import DestroyCountry.Messages exposing (Msg(..))
 
 
@@ -14,15 +14,18 @@ update msg model =
     ChooseCountry ->
       let
         newModel =
-          { model | isConfirming = True }
+          { model | modal = (Just modal) }
 
       in
         (newModel, Cmd.none)
 
     UpdateTarget target ->
       let
+        newModal =
+          Maybe.map (\x -> { x | currentTarget = target }) model.modal
+
         newModel =
-          { model | currentTarget = target }
+          { model | modal = newModal }
 
       in
         (newModel, Cmd.none)
@@ -30,13 +33,16 @@ update msg model =
     ConfirmCountry ->
       let
         countriesDestroyed =
-          model.currentTarget :: model.countriesDestroyed
+          case model.modal of
+            Just modal ->
+              modal.currentTarget :: model.countriesDestroyed
+
+            _ -> model.countriesDestroyed
 
         newModel =
           { model
-          | currentTarget = ""
-          , countriesDestroyed = countriesDestroyed
-          , isConfirming = False
+          | countriesDestroyed = countriesDestroyed
+          , modal = Nothing
           }
 
       in
@@ -46,8 +52,7 @@ update msg model =
       let
         newModel =
           { model
-          | currentTarget = ""
-          , isConfirming = False
+          | modal = Nothing
           }
 
       in

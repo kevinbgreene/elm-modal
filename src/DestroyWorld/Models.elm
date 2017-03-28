@@ -1,14 +1,25 @@
-module DestroyWorld.Models exposing (Model, model)
+module DestroyWorld.Models exposing (..)
+
+
+type alias Modal =
+  { isConfirmed : Bool
+  }
 
 
 type alias Model =
-  { isConfirming : Bool
-  , isWorldDestroyed : Bool
+  { isWorldDestroyed : Bool
+  , modal : Maybe Modal
   }
 
 
 model : Model
 model =
-  { isConfirming = False
-  , isWorldDestroyed = False
+  { isWorldDestroyed = False
+  , modal = Nothing
+  }
+
+
+modal : Modal
+modal =
+  { isConfirmed = False
   }
