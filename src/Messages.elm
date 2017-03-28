@@ -8,6 +8,7 @@ import DestroyCountry.Messages as DestroyCountry
 
 type Msg
   = NoOp
+  | ResetModalFocus
   | UpdateTacos Tacos.Msg
   | UpdateDestroyCountry DestroyCountry.Msg
   | UpdateDestroyWorld DestroyWorld.Msg

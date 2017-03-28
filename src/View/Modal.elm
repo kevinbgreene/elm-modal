@@ -2,9 +2,9 @@ module View.Modal exposing (view)
 
 
 import Html
-import Html exposing (Html, Attribute, button, div, h3, p, text)
-import Html.Attributes exposing (style)
-import Html.Events exposing (onClick)
+import Html exposing (Html, Attribute, button, div, h3, p, span, text)
+import Html.Attributes exposing (style, id, tabindex)
+import Html.Events exposing (onClick, onFocus)
 import Messages exposing (Msg(..))
 import Models exposing (Model, Modal(..))
 import Tacos.View as Tacos
@@ -50,8 +50,10 @@ view model =
 
     Just modal ->
       div [ maskStyle ]
-        [ div [ modalStyle ]
+        [ span [ (onFocus ResetModalFocus), (tabindex 0) ] []
+        , div [ modalStyle, (id "modal-window"), (tabindex -1) ]
           [ modalContent modal ]
+        , span [ (onFocus ResetModalFocus), (tabindex 0) ] []
         ]
 
 

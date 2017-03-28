@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modal Tutorial</title>
+</head>
+<body>
+  <script src="./app.js"></script>
+  <script>
+    const app = Elm.Main.fullscreen();
+
+    app.ports.focusModal.subscribe(() => {
+			setTimeout(() => {
+				const modal = document.getElementById('modal-window');
+				if (modal) {
+					modal.focus();
+				}
+			}, 100);
+    });
+  </script>
+</body>
+</html>
